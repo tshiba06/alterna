@@ -1,29 +1,19 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from routers.mitsuisumitomo_bank import MitsuisumitomoBankRouter
+from routers.rakuten_bank import RakutenBankRouter
+from routers.sbi_shinsei_bank import SbiShinseiBankRouter
+from routers.sumishin_sbi_bank import SumishinSbiBankRouter
 
 app = FastAPI()
 
+# routers
+rakuten_bank_router = RakutenBankRouter(prefix="banks/rakuten")
+mitsuisumitomo_bank_router = MitsuisumitomoBankRouter(prefix="banks/mitsuisumitomo")
+sbi_shinsei_bank_router = SbiShinseiBankRouter(prefix="banks/sbi_shinsei")
+sumishin_sbi_bank_router = SumishinSbiBankRouter(prefix="banks/sumishin_sbi")
 
-class Item(BaseModel):
-    name: str
-    price: float
-    is_offer: bool = None
-
-
-@app.post("/banks/mitsuisumitomo")
-def save_mitsuisumitomo_bank():
-    return {}
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: str = None):
-    return {"item_id": item_id, "q": q}
-
-
-@app.put("/items/{item_id}")
-def update_item(item_id: int, item: Item):
-    return {"item_name": item.name, "item_id": item_id}
-
-
-if __name__ == "__main__":
-    pass
+# set routers
+app.include_router(rakuten_bank_router.router)
+app.include_router(mitsuisumitomo_bank_router.router)
+app.include_router(sbi_shinsei_bank_router.router)
+app.include_router(sumishin_sbi_bank_router.router)

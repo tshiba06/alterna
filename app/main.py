@@ -10,9 +10,9 @@ class Item(BaseModel):
     is_offer: bool = None
 
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+@app.post("/banks/mitsuisumitomo")
+def save_mitsuisumitomo_bank():
+    return {}
 
 
 @app.get("/items/{item_id}")

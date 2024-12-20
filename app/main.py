@@ -7,10 +7,10 @@ from routers.sumishin_sbi_bank import SumishinSbiBankRouter
 app = FastAPI()
 
 # routers
-rakuten_bank_router = RakutenBankRouter(prefix="banks/rakuten")
-mitsuisumitomo_bank_router = MitsuisumitomoBankRouter(prefix="banks/mitsuisumitomo")
-sbi_shinsei_bank_router = SbiShinseiBankRouter(prefix="banks/sbi_shinsei")
-sumishin_sbi_bank_router = SumishinSbiBankRouter(prefix="banks/sumishin_sbi")
+rakuten_bank_router = RakutenBankRouter(prefix="/banks/rakuten")
+mitsuisumitomo_bank_router = MitsuisumitomoBankRouter(prefix="/banks/mitsuisumitomo")
+sbi_shinsei_bank_router = SbiShinseiBankRouter(prefix="/banks/sbi_shinsei")
+sumishin_sbi_bank_router = SumishinSbiBankRouter(prefix="/banks/sumishin_sbi")
 
 # set routers
 app.include_router(rakuten_bank_router.router)

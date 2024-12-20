@@ -1,3 +1,3 @@
-from . import admin
+from . import admin, crypt
 
-__all__ = ["admin"]
+__all__ = ["admin", "crypt"]

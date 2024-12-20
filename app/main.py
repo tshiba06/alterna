@@ -17,3 +17,9 @@ app.include_router(rakuten_bank_router.router)
 app.include_router(mitsuisumitomo_bank_router.router)
 app.include_router(sbi_shinsei_bank_router.router)
 app.include_router(sumishin_sbi_bank_router.router)
+
+
+# TODO: 2段階認証系はwebsocketでいけるか見てみる
+@app.websocket("ws/banks/mitsuisumitomo")
+async def save():
+    pass

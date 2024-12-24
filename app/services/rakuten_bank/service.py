@@ -1,14 +1,16 @@
 import os
-from abc import ABC, abstractmethod
 from time import sleep
 
 from dotenv import load_dotenv
+from internal.log import logger
 from selenium import webdriver
 from selenium.common.exceptions import (
     ElementNotInteractableException,
     NoSuchElementException,
 )
+from selenium.webdriver import ChromeOptions
 from selenium.webdriver.common.by import By
+
 from services.scraping_service import Service
 
 
@@ -16,10 +18,14 @@ class ServiceImpl(Service):
     def __init__(self):
         super().__init__()
 
-    def run() -> int:
+    def run(self) -> int:
+        logger.info("run")
         # initialize
         load_dotenv()
-        driver = webdriver.Chrome()
+        options = ChromeOptions()
+        options.add_argument("--headless=new")
+        driver = webdriver.Chrome(options=options)
+        logger.info("created webdriver")
 
         driver.get(
             "https://sfes.rakuten-bank.co.jp/MS/main/RbS?CID=M_START&CMD=LOGIN&l-id=smp_top_1214_45_CO800"

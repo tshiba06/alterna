@@ -8,6 +8,7 @@ dependencies = [
     "alembic>=1.14.0",
     "cryptography>=44.0.0",
     "fastapi[standard]>=0.115.6",
+    "logging>=0.4.9.6",
     "psycopg2-binary>=2.9.10",
     "python-dotenv>=1.0.1",
     "selenium>=4.27.1",

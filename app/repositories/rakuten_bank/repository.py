@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 
-from model import RakutenBank
 from sqlalchemy.orm import Session
+
+from repositories.rakuten_bank.model import RakutenBank
 
 
 class Repository(ABC):

@@ -23,6 +23,7 @@ dependencies = [
     { name = "alembic" },
     { name = "cryptography" },
     { name = "fastapi", extra = ["standard"] },
+    { name = "logging" },
     { name = "psycopg2-binary" },
     { name = "python-dotenv" },
     { name = "selenium" },
@@ -33,6 +34,7 @@ requires-dist = [
     { name = "alembic", specifier = ">=1.14.0" },
     { name = "cryptography", specifier = ">=44.0.0" },
     { name = "fastapi", extras = ["standard"], specifier = ">=0.115.6" },
+    { name = "logging", specifier = ">=0.4.9.6" },
     { name = "psycopg2-binary", specifier = ">=2.9.10" },
     { name = "python-dotenv", specifier = ">=1.0.1" },
     { name = "selenium", specifier = ">=4.27.1" },
@@ -289,6 +291,12 @@ sdist = { url = "https://files.pythonhosted.org/packages/ed/55/39036716d19cab074
 wheels = [
     { url = "https://files.pythonhosted.org/packages/31/80/3a54838c3fb461f6fec263ebf3a3a41771bd05190238de3486aae8540c36/jinja2-3.1.4-py3-none-any.whl", hash = "sha256:bc5dd2abb727a5319567b7a813e6a2e7318c39f4f487cfe6c89c6f9c7d25197d", size = 133271 },
 ]
+
+[[package]]
+name = "logging"
+version = "0.4.9.6"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/93/4b/979db9e44be09f71e85c9c8cfc42f258adfb7d93ce01deed2788b2948919/logging-0.4.9.6.tar.gz", hash = "sha256:26f6b50773f085042d301085bd1bf5d9f3735704db9f37c1ce6d8b85c38f2417", size = 96029 }
 
 [[package]]
 name = "mako"

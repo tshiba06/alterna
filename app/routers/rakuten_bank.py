@@ -1,3 +1,4 @@
+from internal.log import logger
 from use_cases.rakuten_bank.use_case import UseCase
 
 from routers.router import Router
@@ -11,10 +12,12 @@ class RakutenBankRouter(Router):
     async def get_latest(self):
         pass
 
-    async def save(self):
+    def save(self):
+        logger.info("head save")
         try:
             self.use_case.create()
-        except Exception:
+        except Exception as e:
+            print(e)
             print("exception")
 
     async def get_history(self):

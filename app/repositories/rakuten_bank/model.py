@@ -6,7 +6,7 @@ from repositories.model import Base
 
 
 class RakutenBank(Base):
-    __table__name = "rakuten_banks"
+    __tablename__ = "rakuten_banks"
 
     id = Column(Integer, primary_key=True)
     total = Column(Integer, comment="残高")

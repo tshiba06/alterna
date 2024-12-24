@@ -1,4 +1,3 @@
-from model import CreateInput
 from repositories.rakuten_bank.model import RakutenBank
 from repositories.rakuten_bank.repository import Repository
 from services.rakuten_bank.service import Service as SService
@@ -13,9 +12,10 @@ class UseCase:
 
     def create(self):
         total = self.scraping_service.run()
+        print(total)
 
-        model = RakutenBank(total=total)
         try:
+            model = RakutenBank(total=total)
             self.repository.create(self.session, model)
         except Exception:
             print("insert error")

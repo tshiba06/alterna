@@ -23,7 +23,7 @@ rakuten_use_case = RakutenUseCase(session=session, scraping_service=rakuten_scra
 
 # routers
 rakuten_bank_router = RakutenBankRouter(use_case=rakuten_use_case)
-mitsuisumitomo_bank_router = MitsuisumitomoBankRouter(prefix="/banks/mitsuisumitomo")
+mitsuisumitomo_bank_router = MitsuisumitomoBankRouter()
 sbi_shinsei_bank_router = SbiShinseiBankRouter(prefix="/banks/sbi_shinsei")
 sumishin_sbi_bank_router = SumishinSbiBankRouter(prefix="/banks/sumishin_sbi")
 

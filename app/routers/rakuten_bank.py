@@ -12,10 +12,10 @@ class RakutenBankRouter(Router):
     async def get_latest(self):
         pass
 
-    def save(self):
+    async def save(self):
         logger.info("head save")
         try:
-            self.use_case.create()
+            await self.use_case.create()
         except Exception as e:
             print(e)
             print("exception")

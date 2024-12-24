@@ -1,4 +1,5 @@
 from db.db import session
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from repositories.rakuten_bank.repository import RepositoryImpl as RakutenRepository
 from routers.mitsuisumitomo_bank import MitsuisumitomoBankRouter
@@ -7,6 +8,8 @@ from routers.sbi_shinsei_bank import SbiShinseiBankRouter
 from routers.sumishin_sbi_bank import SumishinSbiBankRouter
 from services.rakuten_bank.service import ServiceImpl as RakutenScrapingService
 from use_cases.rakuten_bank.use_case import UseCase as RakutenUseCase
+
+load_dotenv()
 
 app = FastAPI()
 

@@ -18,12 +18,12 @@ class ServiceImpl(Service):
     def __init__(self):
         super().__init__()
 
-    def run(self) -> int:
+    async def run(self) -> int:
         logger.info("run")
         # initialize
-        load_dotenv()
+        # TODO: driverも外から渡す
         options = ChromeOptions()
-        options.add_argument("--headless=new")
+        # options.add_argument("--headless=new")
         driver = webdriver.Chrome(options=options)
         logger.info("created webdriver")
 
@@ -99,6 +99,7 @@ class ServiceImpl(Service):
 
 
 if __name__ == "__main__":
+    load_dotenv()
     s = ServiceImpl()
     amount = s.run()
     print(amount)

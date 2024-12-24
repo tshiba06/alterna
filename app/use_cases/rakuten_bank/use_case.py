@@ -10,12 +10,12 @@ class UseCase:
         self.repository = repository
         self.scraping_service = scraping_service
 
-    def create(self):
-        total = self.scraping_service.run()
+    async def create(self):
+        total = await self.scraping_service.run()
         print(total)
 
         try:
             model = RakutenBank(total=total)
-            self.repository.create(self.session, model)
+            await self.repository.create(self.session, model)
         except Exception:
             print("insert error")

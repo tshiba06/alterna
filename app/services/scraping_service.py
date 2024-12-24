@@ -6,5 +6,5 @@ class Service(ABC):
         pass
 
     @abstractmethod
-    def run(self) -> int:
+    async def run(self) -> int:
         pass

@@ -1,3 +1,4 @@
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
 from cryptography.hazmat.primitives import hashes
@@ -22,8 +23,16 @@ class EncryptResult:
 class DecryptResult:
     result: bytes
 
+class Crypt(ABC):
+    @abstractmethod
+    def encrypt(self, nonce: str, plain_text: str) -> EncryptResult:
+        pass
 
-class Crypt:
+    def decrypt(self, nonce: str, tag: str, cipher_text: str) -> bytes:
+        pass
+
+
+class CryptImpl:
     def __init__(self, password: str, salt: str):
         self.password = password
         self.salt = salt

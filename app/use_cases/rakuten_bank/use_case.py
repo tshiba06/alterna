@@ -1,16 +1,20 @@
 from model import CreateInput
 from repositories.rakuten_bank.model import RakutenBank
 from repositories.rakuten_bank.repository import Repository
+from services.rakuten_bank.service import Service as SService
 from sqlalchemy.orm import Session
 
 
 class UseCase:
-    def __init__(self, session: Session, repository: Repository):
+    def __init__(self, session: Session, scraping_service: SService, repository: Repository):
         self.session = session
         self.repository = repository
+        self.scraping_service = scraping_service
 
-    def create(self, input: CreateInput):
-        model = RakutenBank(total=input.total)
+    def create(self):
+        total = self.scraping_service.run()
+
+        model = RakutenBank(total=total)
         try:
             self.repository.create(self.session, model)
         except Exception:

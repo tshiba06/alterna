@@ -5,13 +5,17 @@ from routers.router import Router
 
 class RakutenBankRouter(Router):
     def __init__(self, use_case: UseCase):
+        super().__init__(prefix="/banks/rakuten")
         self.use_case = use_case
 
     async def get_latest(self):
         pass
 
     async def save(self):
-        pass
+        try:
+            self.use_case.create()
+        except Exception:
+            print("exception")
 
     async def get_history(self):
         pass

@@ -11,5 +11,5 @@ __all__ = [
     "rakuten_bank",
     "sbi_shinsei_bank",
     "sumishin_sbi_bank",
-    "model"
+    "model",
 ]

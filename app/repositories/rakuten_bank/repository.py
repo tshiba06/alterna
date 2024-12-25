@@ -7,7 +7,7 @@ from repositories.rakuten_bank.model import RakutenBank
 
 class Repository(ABC):
     @abstractmethod
-    def create(self, session: Session,  bank: RakutenBank):
+    def create(self, session: Session, bank: RakutenBank):
         pass
 
 

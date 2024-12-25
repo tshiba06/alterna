@@ -22,7 +22,11 @@ rakuten_scraping_service = RakutenScrapingService()
 
 
 # use_cases
-rakuten_use_case = RakutenUseCase(session=session, scraping_service=rakuten_scraping_service,  repository=rakuten_repository)
+rakuten_use_case = RakutenUseCase(
+    session=session,
+    scraping_service=rakuten_scraping_service,
+    repository=rakuten_repository,
+)
 
 # routers
 rakuten_bank_router = RakutenBankRouter(use_case=rakuten_use_case)

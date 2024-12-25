@@ -1,3 +1,5 @@
+from fastapi import status
+from fastapi.responses import JSONResponse
 from internal.log import logger
 from use_cases.rakuten_bank.use_case import UseCase
 
@@ -15,10 +17,15 @@ class RakutenBankRouter(Router):
     async def save(self):
         logger.info("head save")
         try:
-            await self.use_case.create()
+           result = await self.use_case.create()
+
+           if result == 200:
+               return JSONResponse(content={"message": "success"}, status_code=status.HTTP_200_OK)
+           else:
+               return JSONResponse(content={"message": "failed"}, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Exception as e:
             print(e)
-            print("exception")
+            return JSONResponse(content={"message": "failed"}, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     async def get_history(self):
         pass

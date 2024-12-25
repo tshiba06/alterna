@@ -14,14 +14,17 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 # if salt is None:
 #     raise ValueError("no salt")
 
+
 @dataclass
 class EncryptResult:
     result: bytes
     tag: bytes
 
+
 @dataclass
 class DecryptResult:
     result: bytes
+
 
 class Crypt(ABC):
     @abstractmethod
@@ -62,7 +65,10 @@ class CryptImpl:
         return EncryptResult(result=cipher_text, tag=encryptor.tag)
 
     def decrypt(self, nonce: str, tag: str, cipher_text: str) -> bytes:
-        cipher = Cipher(algorithm=algorithms.AES(self.key), mode=modes.GCM(initialization_vector=nonce.encode(), tag=tag.encode()))
+        cipher = Cipher(
+            algorithm=algorithms.AES(self.key),
+            mode=modes.GCM(initialization_vector=nonce.encode(), tag=tag.encode()),
+        )
         decryptor = cipher.decryptor()
         result = decryptor.update(cipher_text.encode()) + decryptor.finalize()
 

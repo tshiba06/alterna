@@ -1,5 +1,4 @@
 import os
-from time import sleep
 
 from dotenv import load_dotenv
 from internal.log import logger
@@ -10,6 +9,7 @@ from selenium.common.exceptions import (
 )
 from selenium.webdriver import ChromeOptions
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.select import Select
 
 from services.scraping_service import Service
 
@@ -32,7 +32,7 @@ class ServiceImpl(Service):
         )
 
         # サイトの表示に時間がかかるので待つ
-        sleep(2)
+        driver.implicitly_wait(2)
 
         id = os.getenv("RAKUTEN_BANK_ID")
         password = os.getenv("RAKUTEN_BANK_PASSWORD")
@@ -54,41 +54,54 @@ class ServiceImpl(Service):
         login_button = driver.find_element(By.XPATH, "//input[@value='ログイン']")
         login_button.click()
 
-        sleep(2)
+        driver.implicitly_wait(2)
 
         # 合言葉認証がある場合
         try:
-            input_branch_code = driver.find_element(
-                By.ID, "INPUT_FORM:INPUT_BRANCH_CODE"
-            )
-            input_branch_code.send_keys(branch_number)
-            input_account_number = driver.find_element(
-                By.ID, "INPUT_FORM:INPUT_ACCOUNT_NUMBER"
-            )
+            id = "j_id_1h:INPUT_BRANCH_CODE"
+            # id = "INPUT_FORM:INPUT_BRANCH_CODE" # pattern1
+            number = "j_id_1h:INPUT_ACCOUNT_NUMBER"
+            # account_number = "INPUT_FORM:INPUT_ACCOUNT_NUMBER" # pattern1 これはID
+            input_branch_code = driver.find_element(By.ID, id)
+            select = Select(input_branch_code)
+            # input_branch_code.send_keys(branch_number)
+            select.select_by_value(branch_number)
+            input_account_number = driver.find_element(By.NAME, number)
             input_account_number.send_keys(account_number)
 
             # 合言葉の分岐がある
             word = ""
-            question = driver.find_element(
-                By.CLASS_NAME, "c00 margintop20 large marginleft20pc"
+            # question = driver.find_element(
+            #     By.CLASS_NAME, "c00 margintop20 large marginleft20pc"
+            # ) # pattern1
+            questions = driver.find_elements(
+                By.CLASS_NAME, "rf-form-label"
             )
-            if question.text == rakuten_secret1_question:
+
+            question = questions[2] # 最後の要素
+
+            if rakuten_secret1_question in question.text:
                 word = rakuten_secret1_word
-            elif question.text == rakuten_secret2_question:
+            elif rakuten_secret2_question in question.text:
                 word = rakuten_secret2_word
-            elif question.text == rakuten_secret3_question:
+            elif rakuten_secret3_question in question.text:
                 word = rakuten_secret3_word
 
-            input_secret_word = driver.find_element(By.ID, "INPUT_FORM:SECRET_WORD")
-            input_secret_word.send_keys(word)
-            login_button = driver.find_element()
-            login_button.click()
-        except ElementNotInteractableException:
-            print("not clicked")
-        except NoSuchElementException:
-            print("no secret page")
+            print("word", word)
 
-        sleep(2)
+            input_secret_word = driver.find_element(By.NAME, "j_id_1h:SECRET_WORD")
+            # input_secret_word = driver.find_element(By.ID, "INPUT_FORM:SECRET_WORD")
+            input_secret_word.send_keys(word)
+            login_button = driver.find_element(By.ID, "j_id_7d")
+            login_button.click()
+        except ElementNotInteractableException as e:
+            print(e)
+            return -1
+        except NoSuchElementException as e:
+            print(e)
+            return -1
+
+        driver.implicitly_wait(2)
 
         total = driver.find_element(By.ID, "amount-displayed")
         amount = int("".join(char for char in total.text if char.isdigit()))

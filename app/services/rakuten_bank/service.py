@@ -99,7 +99,7 @@ class ServiceImpl(Service):
             return -1
         except NoSuchElementException as e:
             print(e)
-            return -1
+            print("合言葉なし")
 
         driver.implicitly_wait(2)
 

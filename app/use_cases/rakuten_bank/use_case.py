@@ -14,15 +14,14 @@ class UseCase:
 
     async def create(self) -> int:
         total = await self.scraping_service.run()
-        print(total)
         if total < 0:
             return 500
 
         try:
             model = RakutenBank(total=total)
-            await self.repository.create(self.session, model)
+            self.repository.create(self.session, model)
 
             return 200
-        except Exception:
-            print("insert error")
+        except Exception as e:
+            print("insert error: ", e)
             return 500

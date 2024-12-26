@@ -1,6 +1,7 @@
 import os
 
 from selenium import webdriver
+from selenium.webdriver import ChromeOptions
 from selenium.webdriver.common.by import By
 
 from services.scraping_service import Service
@@ -12,7 +13,9 @@ class ServiceImpl(Service):
 
     async def run(self) -> int:
         # initialize
-        driver = webdriver.Chrome()
+        options = ChromeOptions()
+        options.add_argument("--headless=new")
+        driver = webdriver.Chrome(options=options)
 
         driver.get(
             "https://bk.web.sbishinseibank.co.jp/SFC/apps/services/www/SFC/desktopbrowser/default/login?mode=1"

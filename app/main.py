@@ -5,14 +5,19 @@ from repositories.rakuten_bank.repository import RepositoryImpl as RakutenReposi
 from repositories.sbi_shinsei_bank.repository import (
     RepositoryImpl as SbiShinseiRepository,
 )
+from repositories.sumishin_sbi_bank.repository import (
+    RepositoryImpl as SumishinSbiRepository,
+)
 from routers.mitsuisumitomo_bank import MitsuisumitomoBankRouter
 from routers.rakuten_bank import RakutenBankRouter
 from routers.sbi_shinsei_bank import SbiShinseiBankRouter
 from routers.sumishin_sbi_bank import SumishinSbiBankRouter
 from services.rakuten_bank.service import ServiceImpl as RakutenScrapingService
 from services.sbi_shinsei_bank.service import ServiceImpl as SbiShinseiScrapingService
+from services.sumishin_sbi_bank.service import ServiceImpl as SumishinSbiScrapingService
 from use_cases.rakuten_bank.use_case import UseCase as RakutenUseCase
 from use_cases.sbi_shinsei_bank.use_case import UseCase as SbiShinseiUseCase
+from use_cases.sumishin_sbi_bank.use_case import UseCase as SumishinSbiUseCase
 
 load_dotenv()
 
@@ -21,11 +26,12 @@ app = FastAPI()
 # repositories
 rakuten_repository = RakutenRepository()
 sbi_shinsei_repository = SbiShinseiRepository()
-
+sumishin_sbi_repository = SumishinSbiRepository()
 
 # services
 rakuten_scraping_service = RakutenScrapingService()
 sbi_shinsei_scraping_service = SbiShinseiScrapingService()
+sumishin_sbi_scraping_service = SumishinSbiScrapingService()
 
 # use_cases
 rakuten_use_case = RakutenUseCase(
@@ -38,12 +44,17 @@ sbi_shinsei_use_case = SbiShinseiUseCase(
     scraping_service=sbi_shinsei_scraping_service,
     repository=sbi_shinsei_repository,
 )
+sumishin_sbi_use_case = SumishinSbiUseCase(
+    session=session,
+    scraping_service=sumishin_sbi_scraping_service,
+    repository=sumishin_sbi_repository,
+)
 
 # routers
 rakuten_bank_router = RakutenBankRouter(use_case=rakuten_use_case)
 mitsuisumitomo_bank_router = MitsuisumitomoBankRouter()
 sbi_shinsei_bank_router = SbiShinseiBankRouter(use_case=sbi_shinsei_use_case)
-sumishin_sbi_bank_router = SumishinSbiBankRouter(prefix="/banks/sumishin_sbi")
+sumishin_sbi_bank_router = SumishinSbiBankRouter(use_case=sumishin_sbi_use_case)
 
 # set routers
 app.include_router(rakuten_bank_router.router)

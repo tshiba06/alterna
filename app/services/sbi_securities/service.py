@@ -8,12 +8,13 @@ from selenium.common.exceptions import (
     NoSuchElementException,
 )
 from selenium.webdriver.common.by import By
+
 from services.scraping_service import Service
 
 
 class ServiceImpl(Service):
     def __init__(self):
-        self.super().__init__()
+        super().__init__()
 
     def run() -> int:
         # initialize

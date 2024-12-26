@@ -11,7 +11,7 @@ class Router:
         self.router.add_api_route("", self.save, methods=["POST"])
         self.router.add_api_route("/histories", self.get_history, methods=["GET"])
 
-    async def get_latest(self):
+    def get_latest(self):
         raise NotImplementedError("Should be implemented")
 
     async def save(self):

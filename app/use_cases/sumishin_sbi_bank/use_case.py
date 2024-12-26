@@ -5,7 +5,9 @@ from sqlalchemy.orm import Session
 
 
 class UseCase:
-    def __init__(self, session: Session, scraping_service: SService, repository: Repository):
+    def __init__(
+        self, session: Session, scraping_service: SService, repository: Repository
+    ):
         self.session = session
         self.repository = repository
         self.scraping_service = scraping_service

@@ -11,8 +11,10 @@ class RakutenBankRouter(Router):
         super().__init__(prefix="/banks/rakuten")
         self.use_case = use_case
 
-    async def get_latest(self):
-        pass
+    def get_latest(self):
+        total = self.use_case.get_latest()
+
+        return JSONResponse(content={"total": total}, status_code=status.HTTP_200_OK)
 
     async def save(self):
         logger.info("save rakuten")

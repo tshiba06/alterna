@@ -43,7 +43,10 @@ class ServiceImpl(Service):
         # ページ遷移に時間がかかるので待つ
 
         # totalの金額を取得
-        total = driver.find_element(By.XPATH, "//*[contains(@class, 'totalAmount') and contains(@class, 'accountInfo') and contains(@class, 'amounMoney') and contains(@class, 'ng-binding')]")
+        total = driver.find_element(
+            By.XPATH,
+            "//*[contains(@class, 'totalAmount') and contains(@class, 'accountInfo') and contains(@class, 'amounMoney') and contains(@class, 'ng-binding')]",
+        )
         # カンマ入りの数字だけ抜き出す
         amount = int("".join(char for char in total.text if char.isdigit()))
 

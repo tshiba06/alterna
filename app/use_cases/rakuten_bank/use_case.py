@@ -25,3 +25,11 @@ class UseCase:
         except Exception as e:
             print("insert error: ", e)
             return 500
+
+    def get_latest(self) -> int:
+        rakuten_bank = self.repository.get_latest(session=self.session)
+
+        if rakuten_bank is not None:
+            return rakuten_bank.total
+        else:
+            return 0

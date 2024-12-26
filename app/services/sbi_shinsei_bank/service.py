@@ -1,19 +1,17 @@
 import os
-from time import sleep
 
-from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+
 from services.scraping_service import Service
 
 
 class ServiceImpl(Service):
     def __init__(self):
-        self.super().__init__()
+        super().__init__()
 
-    def run() -> int:
+    async def run(self) -> int:
         # initialize
-        load_dotenv()
         driver = webdriver.Chrome()
 
         driver.get(
@@ -21,7 +19,7 @@ class ServiceImpl(Service):
         )
 
         # サイトの表示に時間がかかるので待つ
-        sleep(2)
+        driver.implicitly_wait(3)
 
         id = os.getenv("SBI_SHINSEI_BANK_ID")
         password = os.getenv("SBI_SHINSEI_BANK_PASSWORD")
@@ -34,17 +32,15 @@ class ServiceImpl(Service):
         login_button = driver.find_element(By.XPATH, "//button[@translate='btn_login']")
         login_button.click()
         # ページ遷移に時間がかかるので待つ
-        sleep(2)
 
         # ログイン後ページ
         # 残高一覧をクリック
         balance_list = driver.find_element(By.XPATH, "//a[@ui-sref='top.account_info']")
         balance_list.click()
         # ページ遷移に時間がかかるので待つ
-        sleep(2)
 
         # totalの金額を取得
-        total = driver.find_element(By.CLASS_NAME, "totalAmount")
+        total = driver.find_element(By.XPATH, "//*[contains(@class, 'totalAmount') and contains(@class, 'accountInfo') and contains(@class, 'amounMoney') and contains(@class, 'ng-binding')]")
         # カンマ入りの数字だけ抜き出す
         amount = int("".join(char for char in total.text if char.isdigit()))
 

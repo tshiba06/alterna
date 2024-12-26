@@ -15,7 +15,7 @@ class RakutenBankRouter(Router):
         pass
 
     async def save(self):
-        logger.info("head save")
+        logger.info("save rakuten")
         try:
             result = await self.use_case.create()
 

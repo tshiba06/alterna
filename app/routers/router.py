@@ -7,7 +7,7 @@ class Router:
         self._setup_routers()
 
     def _setup_routers(self):
-        self.router.add_api_route("/", self.get_latest, methods=["GET"])
+        self.router.add_api_route("", self.get_latest, methods=["GET"])
         self.router.add_api_route("", self.save, methods=["POST"])
         self.router.add_api_route("/histories", self.get_history, methods=["GET"])
 

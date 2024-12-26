@@ -11,7 +11,6 @@ class Repository(ABC):
         pass
 
 
-
 class RepositoryImpl(Repository):
     def create(self, session: Session, bank: SbiShinseiBank):
         session.add(bank)

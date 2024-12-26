@@ -19,13 +19,11 @@ class ServiceImpl(Service):
         super().__init__()
 
     async def run(self) -> int:
-        logger.info("run")
         # initialize
         # TODO: driverも外から渡す
         options = ChromeOptions()
         # options.add_argument("--headless=new")
         driver = webdriver.Chrome(options=options)
-        logger.info("created webdriver")
 
         driver.get(
             "https://sfes.rakuten-bank.co.jp/MS/main/RbS?CID=M_START&CMD=LOGIN&l-id=smp_top_1214_45_CO800"
@@ -53,8 +51,6 @@ class ServiceImpl(Service):
         input_password.send_keys(password)
         login_button = driver.find_element(By.XPATH, "//input[@value='ログイン']")
         login_button.click()
-
-        driver.implicitly_wait(2)
 
         # 合言葉認証がある場合
         try:
@@ -98,8 +94,6 @@ class ServiceImpl(Service):
         except NoSuchElementException as e:
             print(e)
             print("合言葉なし")
-
-        driver.implicitly_wait(2)
 
         total = driver.find_element(By.ID, "amount-displayed")
         amount = int("".join(char for char in total.text if char.isdigit()))

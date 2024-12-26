@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import List
 
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
@@ -15,6 +16,10 @@ class Repository(ABC):
     def get_latest(self, session: Session) -> RakutenBank | None:
         pass
 
+    @abstractmethod
+    def get_histories(self, session: Session) -> List[RakutenBank]:
+        pass
+
 
 class RepositoryImpl(Repository):
     def create(self, session: Session, bank: RakutenBank):
@@ -28,3 +33,6 @@ class RepositoryImpl(Repository):
             .limit(1)
             .one_or_none()
         )
+
+    def get_histories(self, session) -> List[RakutenBank]:
+        return session.query(RakutenBank).all()

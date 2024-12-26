@@ -1,4 +1,5 @@
 from fastapi import status
+from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from internal.log import logger
 from use_cases.rakuten_bank.use_case import UseCase
@@ -37,5 +38,10 @@ class RakutenBankRouter(Router):
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
-    async def get_history(self):
-        pass
+    def get_history(self):
+        result = self.use_case.get_histories()
+
+        return JSONResponse(
+            content={"histories": jsonable_encoder(result)},
+            status_code=status.HTTP_200_OK
+        )

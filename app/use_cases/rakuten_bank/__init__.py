@@ -1,3 +1,3 @@
-from . import use_case
+from . import model, use_case
 
-__all__ = ["use_case"]
+__all__ = ["use_case", "model"]

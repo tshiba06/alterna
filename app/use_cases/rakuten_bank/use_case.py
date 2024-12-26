@@ -3,6 +3,8 @@ from repositories.rakuten_bank.repository import Repository
 from services.rakuten_bank.service import Service as SService
 from sqlalchemy.orm import Session
 
+from use_cases.rakuten_bank.model import GetHistoriesOutput, GetHistoryOutput
+
 
 class UseCase:
     def __init__(
@@ -33,3 +35,13 @@ class UseCase:
             return rakuten_bank.total
         else:
             return 0
+
+    def get_histories(self) -> GetHistoriesOutput:
+        rakuten_banks = self.repository.get_histories(session=self.session)
+
+        result = [
+            GetHistoryOutput(created_at=r.created_at, total=r.total)
+            for r in rakuten_banks
+        ]
+
+        return GetHistoriesOutput(result)

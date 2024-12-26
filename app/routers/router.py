@@ -17,5 +17,5 @@ class Router:
     async def save(self):
         raise NotImplementedError("Should be implemented")
 
-    async def get_history(self):
+    def get_history(self):
         raise NotImplementedError("Should be implemented")

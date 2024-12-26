@@ -74,11 +74,9 @@ class ServiceImpl(Service):
             # question = driver.find_element(
             #     By.CLASS_NAME, "c00 margintop20 large marginleft20pc"
             # ) # pattern1
-            questions = driver.find_elements(
-                By.CLASS_NAME, "rf-form-label"
-            )
+            questions = driver.find_elements(By.CLASS_NAME, "rf-form-label")
 
-            question = questions[2] # 最後の要素
+            question = questions[2]  # 最後の要素
 
             if rakuten_secret1_question in question.text:
                 word = rakuten_secret1_word

@@ -1,11 +1,18 @@
-from abc import ABC
+from abc import ABC, abstractmethod
+
+from sqlalchemy.orm import Session
+
+from repositories.sbi_shinsei_bank.model import SbiShinseiBank
 
 
 class Repository(ABC):
-    def __init__(self):
+    @abstractmethod
+    def create(self, session: Session, bank: SbiShinseiBank):
         pass
+
 
 
 class RepositoryImpl(Repository):
-    def __init__(self):
-        pass
+    def create(self, session: Session, bank: SbiShinseiBank):
+        session.add(bank)
+        session.commit()

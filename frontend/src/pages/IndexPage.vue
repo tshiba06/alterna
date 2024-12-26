@@ -8,8 +8,8 @@
 </template>
 
 <script setup lang="ts">
-import BaseCard from 'components/BaseCard.vue'
-import RakutenBankCard from 'components/RakutenBankCard.vue'
-import SbiShinseiBankCard from 'components/SbiShinseiBankCard.vue'
-import SumishinSbiBankCard from 'components/SumishinSbiBankCard.vue'
+import BaseCard from "components/BaseCard.vue";
+import RakutenBankCard from "components/RakutenBankCard.vue";
+import SbiShinseiBankCard from "components/SbiShinseiBankCard.vue";
+import SumishinSbiBankCard from "components/SumishinSbiBankCard.vue";
 </script>

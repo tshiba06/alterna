@@ -14,10 +14,10 @@
 
 <script setup lang="ts">
 defineProps<{
-  total: number
-  title: string
-  bgColor: string
-}>()
+  total: number;
+  title: string;
+  bgColor: string;
+}>();
 </script>
 
 <style scoped>

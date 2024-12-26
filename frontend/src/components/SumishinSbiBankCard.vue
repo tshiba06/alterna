@@ -3,9 +3,9 @@
 </template>
 
 <script setup lang="ts">
-import BaseCard from 'components/BaseCard.vue'
+import BaseCard from "components/BaseCard.vue";
 
 defineProps<{
-  total: number
-}>()
+  total: number;
+}>();
 </script>

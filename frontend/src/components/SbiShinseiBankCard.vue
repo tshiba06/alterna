@@ -1,5 +1,5 @@
 <template>
-  <BaseCard title="楽天銀行" :total="total" bgColor="#bf0000" />
+  <BaseCard title="SBI新生銀行" :total="total" bgColor="#e8f1f9" />
 </template>
 
 <script setup lang="ts">

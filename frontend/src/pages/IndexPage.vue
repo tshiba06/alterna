@@ -1,7 +1,7 @@
 <template>
   <q-page class="row items-center justify-evenly">
     <BaseCard title="test" :total="1234" bgColor="white" />
-    <RakutenBankCard :total="1234" />
+    <RakutenBankCard />
     <SbiShinseiBankCard :total="1234" />
     <SumishinSbiBankCard :total="1234" />
   </q-page>

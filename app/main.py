@@ -1,6 +1,7 @@
 from db.db import session
 from dotenv import load_dotenv
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from repositories.rakuten_bank.repository import RepositoryImpl as RakutenRepository
 from repositories.sbi_shinsei_bank.repository import (
     RepositoryImpl as SbiShinseiRepository,
@@ -22,6 +23,18 @@ from use_cases.sumishin_sbi_bank.use_case import UseCase as SumishinSbiUseCase
 load_dotenv()
 
 app = FastAPI()
+
+# middleware
+origins = [
+    "http://localhost:9000"
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 # repositories
 rakuten_repository = RakutenRepository()
@@ -61,6 +74,7 @@ app.include_router(rakuten_bank_router.router)
 app.include_router(mitsuisumitomo_bank_router.router)
 app.include_router(sbi_shinsei_bank_router.router)
 app.include_router(sumishin_sbi_bank_router.router)
+
 
 
 # TODO: 2段階認証系はwebsocketでいけるか見てみる

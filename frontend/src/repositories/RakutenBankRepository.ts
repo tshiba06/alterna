@@ -22,11 +22,11 @@ export class RakutenBankRepository extends BaseRakutenBankRepository {
   }
 }
 
-export const INJECT_RAKUTEN_BANK_REPOSITORY_KEY: InjectionKey<RakutenBankRepository> = Symbol(
+export const INJECT_RAKUTEN_BANK_REPOSITORY_KEY: InjectionKey<BaseRakutenBankRepository> = Symbol(
   "INJECT_RAKUTEN_BANK_REPOSITORY_KEY",
 );
 
-export const getRakutenBankRepository = (): RakutenBankRepository => {
+export const getRakutenBankRepository = (): BaseRakutenBankRepository => {
   const repository = inject(INJECT_RAKUTEN_BANK_REPOSITORY_KEY);
   if (!repository) {
     throw new Error("no repository");

@@ -43,5 +43,5 @@ class RakutenBankRouter(Router):
 
         return JSONResponse(
             content={"histories": jsonable_encoder(result)},
-            status_code=status.HTTP_200_OK
+            status_code=status.HTTP_200_OK,
         )

@@ -8,5 +8,6 @@ class GetHistoryOutput(BaseModel):
     created_at: datetime
     total: int
 
+
 class GetHistoriesOutput(RootModel[List[GetHistoryOutput]]):
     pass

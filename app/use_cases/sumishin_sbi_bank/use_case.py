@@ -3,6 +3,8 @@ from repositories.sumishin_sbi_bank.repository import Repository
 from services.sumishin_sbi_bank.service import Service as SService
 from sqlalchemy.orm import Session
 
+from use_cases.sumishin_sbi_bank.model import GetHistoriesOutput, GetHistoryOutput
+
 
 class UseCase:
     def __init__(
@@ -25,3 +27,21 @@ class UseCase:
         except Exception as e:
             print("insert error: ", e)
             return 500
+
+    def get_latest(self) -> int:
+        sumishin_sbi_bank = self.repository.get_latest(session=self.session)
+
+        if sumishin_sbi_bank is not None:
+            return sumishin_sbi_bank.total
+        else:
+            return 0
+
+    def get_histories(self) -> GetHistoriesOutput:
+        rakuten_banks = self.repository.get_histories(session=self.session)
+
+        result = [
+            GetHistoryOutput(created_at=r.created_at, total=r.total)
+            for r in rakuten_banks
+        ]
+
+        return GetHistoriesOutput(result)

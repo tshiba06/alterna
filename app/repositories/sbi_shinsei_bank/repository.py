@@ -27,7 +27,12 @@ class RepositoryImpl(Repository):
         session.commit()
 
     def get_latest(self, session: Session) -> SbiShinseiBank | None:
-        return session.query(SbiShinseiBank).order_by(desc(SbiShinseiBank.id)).limit(1).one_or_none()
+        return (
+            session.query(SbiShinseiBank)
+            .order_by(desc(SbiShinseiBank.id))
+            .limit(1)
+            .one_or_none()
+        )
 
     def get_histories(self, session) -> List[SbiShinseiBank]:
         return session.query(SbiShinseiBank).all()

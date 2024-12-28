@@ -1,4 +1,5 @@
 from fastapi import status
+from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from internal.log import logger
 from use_cases.sumishin_sbi_bank.use_case import UseCase
@@ -12,7 +13,9 @@ class SumishinSbiBankRouter(Router):
         self.use_case = use_case
 
     async def get_latest(self):
-        pass
+        total = self.use_case.get_latest()
+
+        return JSONResponse(content={"total": total}, status_code=status.HTTP_200_OK)
 
     async def save(self):
         logger.info("save sumishin sbi")
@@ -36,4 +39,9 @@ class SumishinSbiBankRouter(Router):
             )
 
     async def get_history(self):
-        pass
+        result = self.use_case.get_histories()
+
+        return JSONResponse(
+            content={"histories": jsonable_encoder(result)},
+            status_code=status.HTTP_200_OK,
+        )

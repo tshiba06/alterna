@@ -25,15 +25,13 @@ load_dotenv()
 app = FastAPI()
 
 # middleware
-origins = [
-    "http://localhost:9000"
-]
+origins = ["http://localhost:9000"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"]
+    allow_headers=["*"],
 )
 
 # repositories
@@ -74,7 +72,6 @@ app.include_router(rakuten_bank_router.router)
 app.include_router(mitsuisumitomo_bank_router.router)
 app.include_router(sbi_shinsei_bank_router.router)
 app.include_router(sumishin_sbi_bank_router.router)
-
 
 
 # TODO: 2段階認証系はwebsocketでいけるか見てみる

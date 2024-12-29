@@ -1,8 +1,7 @@
 import os
-from time import sleep
 
-from dotenv import load_dotenv
 from selenium import webdriver
+from selenium.webdriver import ChromeOptions
 from selenium.webdriver.common.by import By
 
 from services.scraping_service import Service
@@ -12,17 +11,18 @@ class ServiceImpl(Service):
     def __init__(self):
         super().__init__()
 
-    def run() -> int:
+    async def run(self) -> int:
         # initialize
-        load_dotenv()
-        driver = webdriver.Chrome()
+        options = ChromeOptions()
+        options.add_argument("--headless=new")
+        driver = webdriver.Chrome(options=options)
 
         driver.get(
             "https://www.benefit401k.com/customer/RkDCMember/Common/JP_D_BFKLogin.aspx"
         )
 
         # サイトの表示に時間がかかるので待つ
-        sleep(2)
+        driver.implicitly_wait(10)
 
         id = os.getenv("SBI_BENEFIT_SYSTEMS_ID")
         password = os.getenv("SBI_BENEFIT_SYSTEMS_PASSWORD")
@@ -34,13 +34,9 @@ class ServiceImpl(Service):
         login_button = driver.find_element(By.ID, "btnLogin")
         login_button.click()
 
-        sleep(2)
-
         # パスワード変更ページをスキップする
         confirm_button = driver.find_element(By.ID, "btnHome")
         confirm_button.click()
-
-        sleep(2)
 
         total = driver.find_element(By.ID, "D_Header1_lblKojinBalanceAssets")
         amount = int("".join(char for char in total.text if char.isdigit()))

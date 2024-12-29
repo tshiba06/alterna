@@ -22,7 +22,7 @@ class ServiceImpl(Service):
         # initialize
         # TODO: driverも外から渡す
         options = ChromeOptions()
-        # options.add_argument("--headless=new")
+        options.add_argument("--headless=new")
         driver = webdriver.Chrome(options=options)
 
         driver.get(

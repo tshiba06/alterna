@@ -1,7 +1,5 @@
 import os
-from time import sleep
 
-from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.common.exceptions import (
     ElementNotInteractableException,
@@ -16,9 +14,8 @@ class ServiceImpl(Service):
     def __init__(self):
         super().__init__()
 
-    def run() -> int:
+    async def run(self) -> int:
         # initialize
-        load_dotenv()
         # TODO: headless
         # TODO: 形が他も含めて同じなので、interfaceを定義してもよい
         driver = webdriver.Chrome()
@@ -28,7 +25,7 @@ class ServiceImpl(Service):
         )
 
         # サイトの表示に時間がかかるので待つ
-        sleep(2)
+        driver.implicitly_wait(10)
 
         id = os.getenv("SBI_SECURITIES_ID")
         password = os.getenv("SBI_SECURITIES_PASSWORD")
@@ -40,7 +37,6 @@ class ServiceImpl(Service):
         login_button = driver.find_element(By.NAME, "ACT_login")
         login_button.click()
 
-        sleep(2)
         try:
             input_device_code = driver.find_element(By.NAME, "device_code")
             device_code = input("デバイス認証コード >> ")
@@ -51,8 +47,6 @@ class ServiceImpl(Service):
             print("not clicked")
         except NoSuchElementException:
             print("no secret page")
-
-        sleep(10)
 
         account_management = driver.find_element(
             By.XPATH, "//a[img[@title='口座管理']]"

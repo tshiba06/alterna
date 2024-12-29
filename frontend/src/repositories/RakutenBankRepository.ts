@@ -8,11 +8,22 @@ type RakutenBankGetLatestResponse = {
 
 export abstract class BaseRakutenBankRepository {
   abstract getLatest(): Promise<AxiosResponse<RakutenBankGetLatestResponse>>;
+  abstract update(): Promise<AxiosResponse<undefined>>;
 }
 
 export class RakutenBankRepository extends BaseRakutenBankRepository {
   async getLatest(): Promise<AxiosResponse<RakutenBankGetLatestResponse>> {
     const res = await api.get("/banks/rakuten", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return res;
+  }
+
+  async update(): Promise<AxiosResponse<undefined>> {
+    const res = await api.post("/banks/rakuten", {
       headers: {
         "Content-Type": "application/json",
       },

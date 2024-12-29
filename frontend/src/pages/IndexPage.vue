@@ -1,10 +1,26 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <TotalCard :total="total" />
-    <RakutenBankCard :total="totals.rakutenBank" />
-    <SbiShinseiBankCard :total="totals.sbiShinseiBank" />
-    <SumishinSbiBankCard :total="totals.sumishinSbiBank" />
-    <SbiBenefitSystemCard :total="totals.sbiBenefitSystem" />
+    <TotalCard :total="total" :loading="isExistLoading" @click-update="handleAllUpdate" />
+    <RakutenBankCard
+      :total="totals.rakutenBank"
+      :loading="loadings.rakutenBank"
+      @click-update="handleRakutenBankUpdate"
+    />
+    <SbiShinseiBankCard
+      :total="totals.sbiShinseiBank"
+      :loading="loadings.sbiShinseiBank"
+      @click-update="handleSbiShinseiBankUpdate"
+    />
+    <SumishinSbiBankCard
+      :total="totals.sumishinSbiBank"
+      :loading="loadings.sumishinSbiBank"
+      @click-update="handleSumishinSbiBankUpdate"
+    />
+    <SbiBenefitSystemCard
+      :total="totals.sbiBenefitSystem"
+      :loading="loadings.sbiBenefitSystem"
+      @click-update="handleSbiBenefitSystemUpdate"
+    />
   </q-page>
 </template>
 
@@ -42,6 +58,20 @@ const totals = reactive<{
   sbiBenefitSystem: 0,
 });
 
+const isExistLoading = computed(() => Object.values(loadings).some((loading) => loading));
+
+const loadings = reactive<{
+  rakutenBank: boolean;
+  sbiShinseiBank: boolean;
+  sumishinSbiBank: boolean;
+  sbiBenefitSystem: boolean;
+}>({
+  rakutenBank: false,
+  sbiShinseiBank: false,
+  sumishinSbiBank: false,
+  sbiBenefitSystem: false,
+});
+
 onMounted(async () => {
   try {
     const res = await rakutenBankRepository.getLatest();
@@ -71,4 +101,75 @@ onMounted(async () => {
     console.error(error);
   }
 });
+
+const handleAllUpdate = async () => {
+  await handleRakutenBankUpdate();
+  await handleSbiShinseiBankUpdate();
+  await handleSumishinSbiBankUpdate();
+  await handleSbiBenefitSystemUpdate();
+};
+
+const handleRakutenBankUpdate = async () => {
+  loadings.rakutenBank = true;
+  try {
+    const up = await rakutenBankRepository.update();
+    if (up.status !== 200) {
+      console.error("Failed to update");
+      return;
+    }
+    const res = await rakutenBankRepository.getLatest();
+    totals.rakutenBank = res.data.total;
+  } catch (error) {
+    console.error(error);
+  }
+  loadings.rakutenBank = false;
+};
+
+const handleSbiShinseiBankUpdate = async () => {
+  loadings.sbiShinseiBank = true;
+  try {
+    const up = await sbiShinseiBankRepository.update();
+    if (up.status !== 200) {
+      console.error("Failed to update");
+      return;
+    }
+    const res = await sbiShinseiBankRepository.getLatest();
+    totals.sbiShinseiBank = res.data.total;
+  } catch (error) {
+    console.error(error);
+  }
+  loadings.sbiShinseiBank = false;
+};
+
+const handleSumishinSbiBankUpdate = async () => {
+  loadings.sumishinSbiBank = true;
+  try {
+    const up = await sumishinSbiBankRepository.update();
+    if (up.status !== 200) {
+      console.error("Failed to update");
+      return;
+    }
+    const res = await sumishinSbiBankRepository.getLatest();
+    totals.sumishinSbiBank = res.data.total;
+  } catch (error) {
+    console.error(error);
+  }
+  loadings.sumishinSbiBank = false;
+};
+
+const handleSbiBenefitSystemUpdate = async () => {
+  loadings.sbiBenefitSystem = true;
+  try {
+    const up = await sbiBenefitSystemRepository.update();
+    if (up.status !== 200) {
+      console.error("Failed to update");
+      return;
+    }
+    const res = await sbiBenefitSystemRepository.getLatest();
+    totals.sbiBenefitSystem = res.data.total;
+  } catch (error) {
+    console.error(error);
+  }
+  loadings.sbiBenefitSystem = false;
+};
 </script>

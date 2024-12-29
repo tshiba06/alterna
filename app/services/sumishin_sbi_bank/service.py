@@ -14,7 +14,7 @@ class ServiceImpl(Service):
     async def run(self) -> int:
         # initialize
         options = ChromeOptions()
-        # options.add_argument("--headless=new")
+        options.add_argument("--headless=new")
         driver = webdriver.Chrome(options=options)
 
         driver.get(

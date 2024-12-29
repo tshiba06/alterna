@@ -8,11 +8,22 @@ type SbiShinseiBankGetLatestResponse = {
 
 export abstract class BaseSbiShinseiBankRepository {
   abstract getLatest(): Promise<AxiosResponse<SbiShinseiBankGetLatestResponse>>;
+  abstract update(): Promise<AxiosResponse<undefined>>;
 }
 
 export class SbiShinseiBankRepository extends BaseSbiShinseiBankRepository {
   override async getLatest(): Promise<AxiosResponse<SbiShinseiBankGetLatestResponse>> {
     const res = await api.get("/banks/sbi_shinsei", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return res;
+  }
+
+  override async update(): Promise<AxiosResponse<undefined>> {
+    const res = await api.post("/banks/sbi_shinsei", {
       headers: {
         "Content-Type": "application/json",
       },

@@ -8,11 +8,22 @@ type SbiBenefitSystemGetLatestResponse = {
 
 export abstract class BaseSbiBenefitSystemRepository {
   abstract getLatest(): Promise<AxiosResponse<SbiBenefitSystemGetLatestResponse>>;
+  abstract update(): Promise<AxiosResponse<undefined>>;
 }
 
 export class SbiBenefitSystemRepository extends BaseSbiBenefitSystemRepository {
-  async getLatest(): Promise<AxiosResponse<SbiBenefitSystemGetLatestResponse>> {
+  override async getLatest(): Promise<AxiosResponse<SbiBenefitSystemGetLatestResponse>> {
     const res = await api.get("/pensions/sbi_benefit_system", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return res;
+  }
+
+  override async update(): Promise<AxiosResponse<undefined>> {
+    const res = await api.post("/pensions/sbi_benefit_system", {
       headers: {
         "Content-Type": "application/json",
       },

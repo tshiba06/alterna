@@ -8,6 +8,10 @@
         <div class="title">{{ title }}</div>
         <span class="text-h3">{{ total.toLocaleString() }}</span> 円
       </q-card-section>
+
+      <q-inner-loading :showing="loading">
+        <q-spinner-gears color="primary" size="50px" />
+      </q-inner-loading>
     </q-card>
   </div>
 </template>
@@ -17,6 +21,7 @@ defineProps<{
   total: number;
   title: string;
   bgColor: string;
+  loading: boolean;
 }>();
 
 const emits = defineEmits<{

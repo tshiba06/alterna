@@ -8,11 +8,22 @@ type SumishinSbiBankGetLatestResponse = {
 
 export abstract class BaseSumishinSbiBankRepository {
   abstract getLatest(): Promise<AxiosResponse<SumishinSbiBankGetLatestResponse>>;
+  abstract update(): Promise<AxiosResponse<undefined>>;
 }
 
 export class SumishinSbiBankRepository extends BaseSumishinSbiBankRepository {
   override async getLatest(): Promise<AxiosResponse<SumishinSbiBankGetLatestResponse>> {
     const res = await api.get("/banks/sumishin_sbi", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return res;
+  }
+
+  override async update(): Promise<AxiosResponse<undefined>> {
+    const res = await api.post("/banks/sumishin_sbi", {
       headers: {
         "Content-Type": "application/json",
       },

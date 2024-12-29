@@ -4,6 +4,10 @@ import {
   RakutenBankRepository,
 } from "src/repositories/RakutenBankRepository";
 import {
+  INJECT_SBI_BENEFIT_SYSTEM_REPOSITORY_KEY,
+  SbiBenefitSystemRepository,
+} from "src/repositories/SbiBenefitSystemRepository";
+import {
   INJECT_SBI_SHINSEI_BANK_REPOSITORY_KEY,
   SbiShinseiBankRepository,
 } from "src/repositories/SbiShinseiBankRepository";
@@ -16,4 +20,5 @@ export default defineBoot(({ app }) => {
   app.provide(INJECT_RAKUTEN_BANK_REPOSITORY_KEY, new RakutenBankRepository());
   app.provide(INJECT_SBI_SHINSEI_BANK_REPOSITORY_KEY, new SbiShinseiBankRepository());
   app.provide(INJECT_SUMISHIN_SBI_BANK_REPOSITORY_KEY, new SumishinSbiBankRepository());
+  app.provide(INJECT_SBI_BENEFIT_SYSTEM_REPOSITORY_KEY, new SbiBenefitSystemRepository());
 });

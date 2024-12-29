@@ -81,8 +81,6 @@ class ServiceImpl(Service):
             elif rakuten_secret3_question in question.text:
                 word = rakuten_secret3_word
 
-            print("word", word)
-
             input_secret_word = driver.find_element(By.NAME, "j_id_1h:SECRET_WORD")
             # input_secret_word = driver.find_element(By.ID, "INPUT_FORM:SECRET_WORD")
             input_secret_word.send_keys(word)

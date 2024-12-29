@@ -5,6 +5,7 @@ Revises: 010ca7e89990
 Create Date: 2024-12-29 18:23:59.765732
 
 """
+
 from datetime import datetime
 from typing import Sequence, Union
 
@@ -12,8 +13,8 @@ import sqlalchemy as sa
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision: str = '430d82b978be'
-down_revision: Union[str, None] = '010ca7e89990'
+revision: str = "430d82b978be"
+down_revision: Union[str, None] = "010ca7e89990"
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
@@ -28,7 +29,6 @@ def upgrade() -> None:
         ),
         if_not_exists=True,
     )
-
 
 
 def downgrade() -> None:

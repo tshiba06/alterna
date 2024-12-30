@@ -30,7 +30,7 @@ class ServiceImpl(Service):
         )
 
         # サイトの表示に時間がかかるので待つ
-        driver.implicitly_wait(2)
+        driver.implicitly_wait(10)
 
         id = os.getenv("RAKUTEN_BANK_ID")
         password = os.getenv("RAKUTEN_BANK_PASSWORD")

@@ -2,9 +2,6 @@ from abc import ABC, abstractmethod
 
 
 class TwoFactorService(ABC):
-    def __init__(self):
-        pass
-
     @abstractmethod
     def initial_run(self):
         """
@@ -12,5 +9,6 @@ class TwoFactorService(ABC):
         """
         pass
 
+    @abstractmethod
     def second_run(self) -> int:
         pass

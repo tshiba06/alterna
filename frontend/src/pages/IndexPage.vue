@@ -103,10 +103,16 @@ onMounted(async () => {
 });
 
 const handleAllUpdate = async () => {
-  await handleRakutenBankUpdate();
-  await handleSbiShinseiBankUpdate();
-  await handleSumishinSbiBankUpdate();
-  await handleSbiBenefitSystemUpdate();
+  try {
+    await Promise.all([
+      handleRakutenBankUpdate(),
+      handleSbiShinseiBankUpdate(),
+      handleSumishinSbiBankUpdate(),
+      handleSbiBenefitSystemUpdate(),
+    ]);
+  } catch (error) {
+    console.error("Error during updates:", error);
+  }
 };
 
 const handleRakutenBankUpdate = async () => {

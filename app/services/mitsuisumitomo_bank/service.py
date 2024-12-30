@@ -1,9 +1,10 @@
 import os
-from time import sleep
 
-from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
 from services.two_factor_scraping_service import TwoFactorService
 
 
@@ -11,15 +12,8 @@ class ServiceImpl(TwoFactorService):
     def __init__(self, driver: webdriver.Chrome):
         self.driver = driver
 
-    def initial_run(self, driver: webdriver.Chrome) -> int:
-        # initialize
-        # TODO: これもmainで一度だけ
-        load_dotenv()
-
+    def initial_run(self) -> str | None:
         self.driver.get("https://direct.smbc.co.jp/aib/aibgsjsw5001.jsp")
-
-        # サイトの表示に時間がかかるので待つ
-        sleep(2)
 
         # TODO: getenvはすべて外で行って関数の引数として渡す
         branch_number = os.getenv("MITSUISUMITOMO_BANK_BRANCH_NUMBER")
@@ -35,17 +29,38 @@ class ServiceImpl(TwoFactorService):
         login_button = self.driver.find_element(By.CLASS_NAME, "js-login-submit")
         login_button.click()
 
-        # TODO: websocketで双方向通信
-        # 2段階認証があるものについてはそこだけ待つ必要がある
-        # QRコードの画像を一度返す必要があるのでこれだけServiceのinterfaceを満たすことはできない
-        # TwoFactorServiceというInterfaceを定義する
-        # initial_run, second_runとかで後で命名は見直す
-        # driverは同一にしないといけないはずなので、driverは外から注入する必要が最低限ありそう
+        qr_container = self.driver.find_element(By.CLASS_NAME, "js-qrCode")
+        qr_code = qr_container.find_element(By.TAG_NAME, "img")
+        img = qr_code.get_attribute("src")
 
-        # driver.quit()
+        return img
+
+    def second_run(self) -> int:
+        accept_button = self.driver.find_element(By.CLASS_NAME, "js-btnEvent")
+        accept_button.click()
+
+        link_element = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//*[@id='main-area']/div/section/div[5]/div/ul/li[1]/a"))
+        )
+        link_element.click()
+
+
+        total = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "price"))
+        )
+
+        amount = int(total.text.replace(",", ""))
+
+        print(amount)
+
+        return amount
 
 
 if __name__ == "__main__":
-    service = ServiceImpl()
-    amount = service.run()
+    driver = webdriver.Chrome()
+    service = ServiceImpl(driver=driver)
+    img = service.initial_run()
+    print(img)
+    input("Press Enter to continue...")
+    amount = service.second_run()
     print(amount)

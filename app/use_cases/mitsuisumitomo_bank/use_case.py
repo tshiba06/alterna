@@ -1,18 +1,29 @@
+from repositories.mitsuisumitomo_bank.model import MitsuisumitomoBank
 from repositories.mitsuisumitomo_bank.repository import Repository as MBRepository
-
-from app.services.mitsuisumitomo_bank.service import Service as MBService
+from selenium.webdriver import Chrome
+from services.mitsuisumitomo_bank.service import ServiceImpl as MBService
+from sqlalchemy.orm import Session
 
 
 class UseCase:
-    def __init__(self, mb_repository: MBRepository, mb_service: MBService):
-        self.mb_repository = mb_repository
-        self.mb_service = mb_service
+    def __init__(self, session: Session, repository: MBRepository, scraping_service: MBService):
+        self.session = session
+        self.repository = repository
+        self.scraping_service = scraping_service
 
-    def save(self):
-        amount = self.run()
-        print(amount)
+    async def first_authentication(self, driver: Chrome) -> str | None:
+        result = await self.scraping_service.initial_run(driver=driver)
 
+        if result:
+            return result
+        else:
+            return None
 
-if __name__ == "__main__":
-    u = UseCase()
-    u.save()
+    async def second_authentication(self, driver: Chrome):
+        result = await self.scraping_service.second_run(driver=driver)
+        if result:
+            model = MitsuisumitomoBank(total=result)
+            self.repository.create(session=self.session, bank=model)
+            return 200
+        else:
+            return 500

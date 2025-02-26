@@ -46,6 +46,24 @@ const total = computed(
     totals.rakutenBank + totals.sbiShinseiBank + totals.sumishinSbiBank + totals.sbiBenefitSystem,
 );
 
+const mitsuisumitomo = new WebSocket("ws://localhost:18080/mitsuisumitomo_bank");
+mitsuisumitomo.onopen = () => {
+  console.log("Connected to mitsuisumitomo");
+  mitsuisumitomo.send("Hello from frontend");
+};
+
+mitsuisumitomo.onmessage = (event) => {
+  console.log(event.data);
+};
+
+mitsuisumitomo.onclose = () => {
+  console.log("Disconnected from mitsuisumitomo");
+};
+
+mitsuisumitomo.onerror = (error) => {
+  console.error("Error:", error);
+};
+
 const totals = reactive<{
   rakutenBank: number;
   sbiShinseiBank: number;

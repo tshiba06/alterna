@@ -1,0 +1,49 @@
+name: CI Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13' # Specify your project's Python version
+
+    - name: Install uv
+      run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+    - name: Install backend dependencies with uv
+      run: |
+        export PATH="$HOME/.cargo/bin:$PATH" # Ensure uv is in PATH
+        if [ -f uv.lock ]; then
+          uv pip sync --frozen-lock uv.lock
+        elif [ -f pyproject.toml ]; then
+          uv pip install . # This should work if pyproject.toml is set up for uv
+        else
+          echo "uv.lock or pyproject.toml not found!"
+          exit 1
+        fi
+      working-directory: ./ # Assuming pyproject.toml or uv.lock is in the root
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18' # Specify your project's Node.js version, LTS is good
+
+    - name: Install frontend dependencies
+      run: npm install # or yarn install if you use yarn
+      working-directory: ./frontend
+
+    - name: Build frontend assets
+      run: npx quasar build # or npm run build if that's your script
+      working-directory: ./frontend

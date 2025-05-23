@@ -87,4 +87,5 @@ The application supports data aggregation from the following institutions (based
 
 ## License
 
-(Placeholder for license information - e.g., MIT, Apache 2.0. Please add the appropriate license file and update this section.)
+This project is licensed under the Apache License 2.0.
+See [LICENSE.md](LICENSE.md) for the full license text.

@@ -26,9 +26,9 @@ jobs:
       run: |
         export PATH="$HOME/.cargo/bin:$PATH" # Ensure uv is in PATH
         if [ -f uv.lock ]; then
-          uv pip sync --frozen-lock uv.lock
+          uv pip sync uv.lock # Corrected command
         elif [ -f pyproject.toml ]; then
-          uv pip install . # This should work if pyproject.toml is set up for uv
+          uv pip install . 
         else
           echo "uv.lock or pyproject.toml not found!"
           exit 1

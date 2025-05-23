@@ -21,6 +21,7 @@ from routers.rakuten_bank import RakutenBankRouter
 from routers.sbi_benefit_system import SbiBenefitSystemRouter
 from routers.sbi_shinsei_bank import SbiShinseiBankRouter
 from routers.sumishin_sbi_bank import SumishinSbiBankRouter
+from app.routers.mitsuisumitomo_card import router as mitsuisumitomo_card_router # Added import
 from services.mitsuisumitomo_bank.service import (
     ServiceImpl as MitsuisumitomoBankService,
 )
@@ -107,6 +108,7 @@ app.include_router(sbi_shinsei_bank_router.router)
 app.include_router(sumishin_sbi_bank_router.router)
 app.include_router(sbi_benefit_system_router.router)
 app.include_router(mitsuisumitomo_bank_websocket_router.router)
+app.include_router(mitsuisumitomo_card_router) # Added router
 
 
 # TODO: 2段階認証系はwebsocketでいけるか見てみる

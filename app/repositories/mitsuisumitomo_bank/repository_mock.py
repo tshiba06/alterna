@@ -1,4 +1,4 @@
-from repositories.mitsuisumitomo_bank.repository import Repository
+from app.repositories.mitsuisumitomo_bank.repository import Repository # Corrected import
 
 
 class RepositoryMock(Repository):

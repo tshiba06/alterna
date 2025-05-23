@@ -2,7 +2,7 @@ from datetime import datetime
 
 from sqlalchemy import TIMESTAMP, Column, Integer
 
-from repositories.model import Base
+from app.repositories.model import Base # Corrected import
 
 
 class SbiBenefitSystem(Base):

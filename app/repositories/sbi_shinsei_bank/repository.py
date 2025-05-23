@@ -4,7 +4,7 @@ from typing import List
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
 
-from repositories.sbi_shinsei_bank.model import SbiShinseiBank
+from app.repositories.sbi_shinsei_bank.model import SbiShinseiBank # Corrected import
 
 
 class Repository(ABC):

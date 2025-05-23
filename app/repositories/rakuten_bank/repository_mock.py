@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from repositories.rakuten_bank.model import RakutenBank
-from repositories.rakuten_bank.repository import Repository
+from app.repositories.rakuten_bank.model import RakutenBank # Corrected import
+from app.repositories.rakuten_bank.repository import Repository
 
 
 class RepositoryMock(Repository):

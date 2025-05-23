@@ -4,7 +4,7 @@ from typing import List
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
 
-from repositories.rakuten_bank.model import RakutenBank
+from app.repositories.rakuten_bank.model import RakutenBank # Corrected import
 
 
 class Repository(ABC):

@@ -87,5 +87,5 @@ The application supports data aggregation from the following institutions (based
 
 ## License
 
-This project is licensed under the GNU General Public License v3.0.
+This project is licensed under the Apache License 2.0.
 See [LICENSE.md](LICENSE.md) for the full license text.

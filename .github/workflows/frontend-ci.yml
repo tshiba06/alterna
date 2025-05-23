@@ -25,6 +25,14 @@ jobs:
       run: npm install # or yarn install if you use yarn
       working-directory: ./frontend
 
+    - name: Lint frontend code
+      run: npm run lint
+      working-directory: ./frontend
+
+    - name: Check frontend formatting
+      run: prettier --check "**/*.{js,ts,vue,scss,html,md,json}" --ignore-path .gitignore
+      working-directory: ./frontend
+
     - name: Build frontend assets
       run: npm run build
       working-directory: ./frontend

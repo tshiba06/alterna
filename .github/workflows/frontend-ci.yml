@@ -1,6 +1,8 @@
 name: CI Build
 
 on:
+  paths:
+    - 'frontend/**'
   push:
     branches: [ main ]
   pull_request:

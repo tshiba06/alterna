@@ -30,7 +30,7 @@ jobs:
       working-directory: ./frontend
 
     - name: Check frontend formatting
-      run: prettier --check "**/*.{js,ts,vue,scss,html,md,json}" --ignore-path .gitignore
+      run: npm run format:check
       working-directory: ./frontend
 
     - name: Build frontend assets

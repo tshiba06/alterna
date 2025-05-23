@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from repositories.sbi_benefit_system.model import SbiBenefitSystem
-from repositories.sbi_benefit_system.repository import Repository
+from app.repositories.sbi_benefit_system.model import SbiBenefitSystem # Corrected import
+from app.repositories.sbi_benefit_system.repository import Repository
 
 
 class RepositoryMock(Repository):

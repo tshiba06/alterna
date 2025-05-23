@@ -4,7 +4,7 @@ from selenium import webdriver
 from selenium.webdriver import ChromeOptions
 from selenium.webdriver.common.by import By
 
-from services.scraping_service import Service
+from app.services.scraping_service import Service # Modified import
 
 
 class ServiceImpl(Service):

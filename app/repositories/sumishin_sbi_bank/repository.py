@@ -4,7 +4,7 @@ from typing import List
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
 
-from repositories.sumishin_sbi_bank.model import SumishinSbiBank
+from app.repositories.sumishin_sbi_bank.model import SumishinSbiBank # Corrected import
 
 
 class Repository(ABC):

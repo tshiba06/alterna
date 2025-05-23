@@ -4,7 +4,7 @@ from typing import List
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
 
-from repositories.mitsuisumitomo_bank.model import MitsuisumitomoBank
+from app.repositories.mitsuisumitomo_bank.model import MitsuisumitomoBank # Ensured single correct import for its own model
 
 
 class Repository(ABC):

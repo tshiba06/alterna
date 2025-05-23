@@ -1,0 +1,28 @@
+name: CI Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22' # Specify your project's Node.js version, LTS is good
+
+    - name: Install frontend dependencies
+      run: npm install # or yarn install if you use yarn
+      working-directory: ./frontend
+
+    - name: Build frontend assets
+      run: npm run build
+      working-directory: ./frontend

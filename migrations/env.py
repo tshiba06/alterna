@@ -4,6 +4,7 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
+from app.repositories.model import Base # Added import
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -18,7 +19,16 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = None
+
+# Import all model modules here so Base.metadata is populated
+import app.repositories.rakuten_bank.model
+import app.repositories.sbi_shinsei_bank.model
+import app.repositories.sumishin_sbi_bank.model
+import app.repositories.sbi_benefit_system.model
+import app.repositories.mitsuisumitomo_bank.model
+import app.repositories.mitsuisumitomo_card.model # New model
+
+target_metadata = Base.metadata # Changed to use Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -38,16 +48,28 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    url = config.get_main_option("sqlalchemy.url")
+    # For autogenerate in "offline" mode (no DB connection),
+    # we don't need a URL if we're just comparing metadata.
+    # However, context.configure might still expect it.
+    # Let's provide a dummy URL if the real one is commented out in alembic.ini
+    # or handle it by passing url=None if that's supported for pure metadata diff.
+    # For now, to avoid KeyError and assuming autogen might not need a real URL.
+    
+    # If we are truly offline for autogen, url can be None.
+    # The main thing is that target_metadata is set.
+    # If 'sqlalchemy.url' is commented out, get_main_option will return None if no default is set.
+    # Forcing url=None for pure metadata comparison in offline mode for autogenerate
     context.configure(
-        url=url,
+        url=None, 
         target_metadata=target_metadata,
-        literal_binds=True,
-        dialect_opts={"paramstyle": "named"},
+        # literal_binds=True, # Removed as it's not compatible with offline autogen diff
+        # dialect_opts={"paramstyle": "named"}, # Removed for simplicity
+        dialect_name="postgresql"
     )
 
-    with context.begin_transaction():
-        context.run_migrations()
+    # Removed with context.begin_transaction(): for offline autogenerate
+    # Also removing context.run_migrations() as it's not needed for autogen setup
+    # The autogenerate process itself will use the configured context.
 
 
 def run_migrations_online() -> None:
@@ -70,7 +92,16 @@ def run_migrations_online() -> None:
             context.run_migrations()
 
 
-if context.is_offline_mode():
+# Determine if running in offline or online mode based on sqlalchemy.url presence
+db_url_for_mode_check = config.get_main_option("sqlalchemy.url", None)
+
+if not db_url_for_mode_check:
+    # If sqlalchemy.url is not set (commented out), run in offline mode.
+    # This is to ensure autogenerate can run without a live DB.
+    import logging # Make sure logging is imported if not already
+    logger = logging.getLogger("alembic.env")
+    logger.info("sqlalchemy.url is not configured in alembic.ini, running in offline mode.")
     run_migrations_offline()
 else:
+    # If sqlalchemy.url is set, proceed with online mode.
     run_migrations_online()

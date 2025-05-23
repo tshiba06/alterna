@@ -4,7 +4,7 @@ from typing import List
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
 
-from repositories.sbi_benefit_system.model import SbiBenefitSystem
+from app.repositories.sbi_benefit_system.model import SbiBenefitSystem # Corrected import
 
 
 class Repository(ABC):

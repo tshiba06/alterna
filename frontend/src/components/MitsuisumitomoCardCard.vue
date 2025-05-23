@@ -3,13 +3,13 @@
     title="三井住友カード"
     :total="total"
     :loading="loading"
-    bgColor="#004736"  // A common color for SMBC Card, adjust if needed
+    bgColor="#004736"
     @click-update="handleClick"
   />
 </template>
 
 <script setup lang="ts">
-import BaseCard from 'components/BaseCard.vue';
+import BaseCard from "components/BaseCard.vue";
 
 defineProps<{
   total: number;
@@ -17,10 +17,10 @@ defineProps<{
 }>();
 
 const emits = defineEmits<{
-  (e: 'click-update'): void;
+  (e: "click-update"): void;
 }>();
 
 const handleClick = () => {
-  emits('click-update');
+  emits("click-update");
 };
 </script>

@@ -1,11 +1,11 @@
-import { api } from 'boot/axios'; // Assuming Quasar's boot file for axios
-import { AxiosResponse } from 'axios';
+import type { AxiosResponse } from "axios";
+import { api } from "boot/axios"; // Assuming Quasar's boot file for axios
 
 // Define response types if you have them, e.g.:
 // interface SaveResponse { message: string; }
 // interface LatestResponse { total: number | null; message?: string; }
 
-const RESOURCE_PATH = '/cards/mitsuisumitomo';
+const RESOURCE_PATH = "/cards/mitsuisumitomo";
 
 export interface MitsuisumitomoCardRepository {
   update: () => Promise<AxiosResponse<{ message: string }>>; // POST /save

@@ -43,7 +43,7 @@ import { getRakutenBankRepository } from "src/repositories/RakutenBankRepository
 import { getSbiBenefitSystemRepository } from "src/repositories/SbiBenefitSystemRepository";
 import { getSbiShinseiBankRepository } from "src/repositories/SbiShinseiBankRepository";
 import { getSumishinSbiBankRepository } from "src/repositories/SumishinSbiBankRepository";
-import { getMitsuisumitomoCardRepository } from 'src/repositories/MitsuisumitomoCardRepository'; // Added import
+import { getMitsuisumitomoCardRepository } from "src/repositories/MitsuisumitomoCardRepository"; // Added import
 import { computed, onMounted, reactive } from "vue";
 
 const rakutenBankRepository = getRakutenBankRepository();
@@ -143,7 +143,7 @@ onMounted(async () => {
     const res = await smbcCardRepository.getLatest();
     totals.smbcCard = res.data.total ?? 0;
   } catch (error) {
-    console.error('Error fetching initial SMBC Card data:', error);
+    console.error("Error fetching initial SMBC Card data:", error);
     totals.smbcCard = 0;
   }
 });
@@ -232,7 +232,7 @@ const handleSmbcCardUpdate = async () => {
   try {
     const up = await smbcCardRepository.update(); // Calls POST /save
     if (up.status !== 200) {
-      console.error('Failed to trigger SMBC Card data refresh');
+      console.error("Failed to trigger SMBC Card data refresh");
       // Optionally set an error message for the user
     }
     // Always try to get the latest, even if update status wasn't 200,
@@ -240,7 +240,7 @@ const handleSmbcCardUpdate = async () => {
     const res = await smbcCardRepository.getLatest();
     totals.smbcCard = res.data.total ?? 0; // Use nullish coalescing for safety
   } catch (error) {
-    console.error('Error updating SMBC Card:', error);
+    console.error("Error updating SMBC Card:", error);
     totals.smbcCard = 0; // Reset or keep old value on error
     // Optionally set an error message for the user
   }

@@ -1,0 +1,9 @@
+/* Global styles from Vite's default template. */
+/* These are largely managed by MUI's CssBaseline and theme. */
+/* Clearing this file to avoid conflicts and rely on MUI for base styling. */
+/* If specific global overrides are needed that CssBaseline doesn't cover, they can be added here. */
+
+body {
+  /* MUI's CssBaseline will handle body margin and background based on the theme. */
+  /* You could add project-wide font-family settings here if not fully managed by theme.typography */
+}

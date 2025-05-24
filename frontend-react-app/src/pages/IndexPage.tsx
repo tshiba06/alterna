@@ -134,7 +134,7 @@ export const IndexPage: FC = () => {
   // Individual update handlers
   const createUpdateHandler = useCallback(
     async (
-      repo: { update: () => Promise<any>; getLatest: () => Promise<{ data: { total: number | null } }> },
+      repo: { update: () => Promise<{status: number}>; getLatest: () => Promise<{ data: { total: number | null } }> },
       key: keyof TotalsState
     ) => {
       setLoadings(prev => ({ ...prev, [key]: true }));
@@ -214,42 +214,42 @@ export const IndexPage: FC = () => {
     <ThemeProvider theme={theme}>
       <Container sx={{ py: 3 }}> {/* py: padding top/bottom, similar to q-page */}
         <Grid container spacing={3} justifyContent="space-evenly" alignItems="stretch"> {/* alignItems="stretch" to make cards same height if content differs */}
-          <Grid xs={12} md={4} component="div">
+          <Grid   component="div">
             <TotalCard
               total={grandTotal}
               loading={isAnyLoading} // TotalCard loading reflects if ANY card is loading
               onClickUpdate={handleAllUpdate}
             />
           </Grid>
-          <Grid xs={12} md={4} component="div">
+          <Grid  component="div">
             <RakutenBankCard
               total={totals.rakutenBank}
               loading={loadings.rakutenBank}
               onClickUpdate={handleRakutenBankUpdate}
             />
           </Grid>
-          <Grid xs={12} md={4} component="div">
+          <Grid component="div">
             <SbiShinseiBankCard
               total={totals.sbiShinseiBank}
               loading={loadings.sbiShinseiBank}
               onClickUpdate={handleSbiShinseiBankUpdate}
             />
           </Grid>
-          <Grid xs={12} md={4} component="div">
+          <Grid component="div">
             <SumishinSbiBankCard
               total={totals.sumishinSbiBank}
               loading={loadings.sumishinSbiBank}
               onClickUpdate={handleSumishinSbiBankUpdate}
             />
           </Grid>
-          <Grid xs={12} md={4} component="div">
+          <Grid component="div">
             <SbiBenefitSystemCard
               total={totals.sbiBenefitSystem}
               loading={loadings.sbiBenefitSystem}
               onClickUpdate={handleSbiBenefitSystemUpdate}
             />
           </Grid>
-          <Grid xs={12} md={4} component="div">
+          <Grid  component="div">
             <MitsuisumitomoCardCard
               total={totals.smbcCard}
               loading={loadings.smbcCard}

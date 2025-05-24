@@ -3,7 +3,6 @@ import { createTheme } from '@mui/material/styles';
 // Color definitions from quasar.variables.scss
 const primaryColor = '#1976d2';
 const secondaryColor = '#26a69a';
-const accentColor = '#9c27b0'; // Will map to secondary or a custom field
 
 const positiveColor = '#21ba45';
 const negativeColor = '#c10015';

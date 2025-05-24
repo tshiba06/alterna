@@ -1,24 +1,36 @@
 import type { AxiosResponse } from "axios";
-import { api } from "boot/axios"; // Assuming Quasar's boot file for axios
-
-// Define response types if you have them, e.g.:
-// interface SaveResponse { message: string; }
-// interface LatestResponse { total: number | null; message?: string; }
+import api from "../services/api";
 
 const RESOURCE_PATH = "/cards/mitsuisumitomo";
 
-export interface MitsuisumitomoCardRepository {
-  update: () => Promise<AxiosResponse<{ message: string }>>; // POST /save
-  getLatest: () => Promise<AxiosResponse<{ total: number | null; message?: string }>>;
-}
-
-const repository: MitsuisumitomoCardRepository = {
-  update: () => {
-    return api.post(`${RESOURCE_PATH}/save`);
-  },
-  getLatest: () => {
-    return api.get(`${RESOURCE_PATH}/latest`);
-  },
+// Type definitions
+export type MitsuisumitomoCardGetLatestResponse = {
+  total: number | null;
+  message?: string;
 };
 
-export const getMitsuisumitomoCardRepository = () => repository;
+export type MitsuisumitomoCardUpdateResponse = {
+  message: string;
+};
+
+// Abstract class (optional, but good for consistency if other repositories use it)
+export abstract class BaseMitsuisumitomoCardRepository {
+  abstract update(): Promise<AxiosResponse<MitsuisumitomoCardUpdateResponse>>;
+  abstract getLatest(): Promise<AxiosResponse<MitsuisumitomoCardGetLatestResponse>>;
+}
+
+// Concrete class
+export class MitsuisumitomoCardRepository extends BaseMitsuisumitomoCardRepository {
+  async update(): Promise<AxiosResponse<MitsuisumitomoCardUpdateResponse>> {
+    const res = await api.post<MitsuisumitomoCardUpdateResponse>(`${RESOURCE_PATH}/save`);
+    return res;
+  }
+
+  async getLatest(): Promise<AxiosResponse<MitsuisumitomoCardGetLatestResponse>> {
+    const res = await api.get<MitsuisumitomoCardGetLatestResponse>(`${RESOURCE_PATH}/latest`);
+    return res;
+  }
+}
+
+// Optional: Export an instance for singleton-like usage
+export const mitsuisumitomoCardRepository = new MitsuisumitomoCardRepository();

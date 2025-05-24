@@ -1,43 +1,24 @@
-# Alterna (frontend)
+# Frontend React App (Vite + React + TypeScript + MUI)
 
-money management
+This is the new frontend application built with React and Vite.
 
-## Install the dependencies
+## Development
 
-```bash
-yarn
-# or
-npm install
-```
+1.  **Navigate to the project directory:**
+    ```bash
+    cd frontend-react/frontend-react-app
+    ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+    (or `yarn install` if yarn is preferred)
 
-```bash
-quasar dev
-```
+3.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+    (or `yarn dev`)
 
-### Lint the files
-
-```bash
-yarn lint
-# or
-npm run lint
-```
-
-### Format the files
-
-```bash
-yarn format
-# or
-npm run format
-```
-
-### Build the app for production
-
-```bash
-quasar build
-```
-
-### Customize the configuration
-
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+This will start the development server, typically on `http://localhost:5173`.

@@ -1,5 +1,6 @@
 import React from 'react';
-import { createBrowserRouter, RouteObject } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
+import type { RouteObject } from 'react-router-dom';
 import MainLayout from '../layouts/MainLayout';
 import IndexPage from '../pages/IndexPage';
 import ErrorNotFound from '../pages/ErrorNotFound';

@@ -1,4 +1,4 @@
-import React from 'react';
+import { type FC } from 'react';
 import BaseCard from './BaseCard';
 
 interface SumishinSbiBankCardProps {
@@ -7,7 +7,7 @@ interface SumishinSbiBankCardProps {
   onClickUpdate: () => void;
 }
 
-const SumishinSbiBankCard: React.FC<SumishinSbiBankCardProps> = ({ total, loading, onClickUpdate }) => {
+export const SumishinSbiBankCard: FC<SumishinSbiBankCardProps> = ({ total, loading, onClickUpdate }) => {
   return (
     <BaseCard
       title="住信SBI銀行"

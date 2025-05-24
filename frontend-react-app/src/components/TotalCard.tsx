@@ -1,4 +1,4 @@
-import React from 'react';
+import { type FC } from 'react';
 import BaseCard from './BaseCard';
 
 interface TotalCardProps {
@@ -7,7 +7,7 @@ interface TotalCardProps {
   onClickUpdate: () => void;
 }
 
-const TotalCard: React.FC<TotalCardProps> = ({ total, loading, onClickUpdate }) => {
+export const TotalCard: FC<TotalCardProps> = ({ total, loading, onClickUpdate }) => {
   return (
     <BaseCard
       title="Total"

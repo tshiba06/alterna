@@ -1,4 +1,4 @@
-import React from 'react';
+import { type FC } from 'react';
 import BaseCard from './BaseCard';
 
 interface RakutenBankCardProps {
@@ -7,7 +7,7 @@ interface RakutenBankCardProps {
   onClickUpdate: () => void;
 }
 
-const RakutenBankCard: React.FC<RakutenBankCardProps> = ({ total, loading, onClickUpdate }) => {
+export const RakutenBankCard: FC<RakutenBankCardProps> = ({ total, loading, onClickUpdate }) => {
   return (
     <BaseCard
       title="楽天銀行"

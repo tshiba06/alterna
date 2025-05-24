@@ -1,4 +1,4 @@
-import React from 'react';
+import { type FC } from 'react';
 import BaseCard from './BaseCard';
 
 interface MitsuisumitomoCardCardProps {
@@ -7,7 +7,7 @@ interface MitsuisumitomoCardCardProps {
   onClickUpdate: () => void;
 }
 
-const MitsuisumitomoCardCard: React.FC<MitsuisumitomoCardCardProps> = ({ total, loading, onClickUpdate }) => {
+export const MitsuisumitomoCardCard: FC<MitsuisumitomoCardCardProps> = ({ total, loading, onClickUpdate }) => {
   return (
     <BaseCard
       title="三井住友カード"

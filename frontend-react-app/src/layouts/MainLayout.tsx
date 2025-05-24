@@ -1,15 +1,15 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
+import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
+import IconButton from '@mui/material/IconButton';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import type { FC } from 'react';
+import { Outlet } from 'react-router-dom';
 // Recommended for baseline styling - Removed as it's now in App.tsx
 
-const MainLayout: React.FC = () => {
+export const MainLayout: FC = () => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       {/* Apply baseline browser styling normalization - Removed as it's now in App.tsx */}

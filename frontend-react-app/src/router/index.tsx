@@ -1,9 +1,8 @@
-import React from 'react';
-import { createBrowserRouter } from 'react-router-dom';
 import type { RouteObject } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import MainLayout from '../layouts/MainLayout';
-import IndexPage from '../pages/IndexPage';
 import ErrorNotFound from '../pages/ErrorNotFound';
+import IndexPage from '../pages/IndexPage';
 
 export const routes: RouteObject[] = [
   {

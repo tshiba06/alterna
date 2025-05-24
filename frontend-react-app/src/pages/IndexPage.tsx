@@ -1,26 +1,24 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState, type FC } from 'react';
 
 // MUI Components
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 import { ThemeProvider, createTheme } from '@mui/material/styles'; // For custom theme if needed
 
 // Custom Components
-import BaseCard from '../components/BaseCard'; // Though likely not used directly, good for reference
-import TotalCard from '../components/TotalCard';
+import MitsuisumitomoCardCard from '../components/MitsuisumitomoCardCard';
 import RakutenBankCard from '../components/RakutenBankCard';
+import SbiBenefitSystemCard from '../components/SbiBenefitSystemCard';
 import SbiShinseiBankCard from '../components/SbiShinseiBankCard';
 import SumishinSbiBankCard from '../components/SumishinSbiBankCard';
-import SbiBenefitSystemCard from '../components/SbiBenefitSystemCard';
-import MitsuisumitomoCardCard from '../components/MitsuisumitomoCardCard';
+import TotalCard from '../components/TotalCard';
 
 // Repositories
+import { mitsuisumitomoCardRepository } from '../repositories/MitsuisumitomoCardRepository';
 import { rakutenBankRepository } from '../repositories/RakutenBankRepository';
+import { sbiBenefitSystemRepository } from '../repositories/SbiBenefitSystemRepository';
 import { sbiShinseiBankRepository } from '../repositories/SbiShinseiBankRepository';
 import { sumishinSbiBankRepository } from '../repositories/SumishinSbiBankRepository';
-import { sbiBenefitSystemRepository } from '../repositories/SbiBenefitSystemRepository';
-import { mitsuisumitomoCardRepository } from '../repositories/MitsuisumitomoCardRepository';
 
 // Define types for state
 interface TotalsState {
@@ -39,7 +37,7 @@ interface LoadingsState {
   smbcCard: boolean;
 }
 
-const IndexPage: React.FC = () => {
+export const IndexPage: FC = () => {
   const [totals, setTotals] = useState<TotalsState>({
     rakutenBank: 0,
     sbiShinseiBank: 0,
@@ -51,8 +49,8 @@ const IndexPage: React.FC = () => {
   const [loadings, setLoadings] = useState<LoadingsState>({
     rakutenBank: false,
     sbiShinseiBank: false,
-    sumishinSbiBank: false,
     sbiBenefitSystem: false,
+    sumishinSbiBank: false,
     smbcCard: false,
   });
 
@@ -216,42 +214,42 @@ const IndexPage: React.FC = () => {
     <ThemeProvider theme={theme}>
       <Container sx={{ py: 3 }}> {/* py: padding top/bottom, similar to q-page */}
         <Grid container spacing={3} justifyContent="space-evenly" alignItems="stretch"> {/* alignItems="stretch" to make cards same height if content differs */}
-          <Grid item xs={12} md={4}>
+          <Grid xs={12} md={4} component="div">
             <TotalCard
               total={grandTotal}
               loading={isAnyLoading} // TotalCard loading reflects if ANY card is loading
               onClickUpdate={handleAllUpdate}
             />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid xs={12} md={4} component="div">
             <RakutenBankCard
               total={totals.rakutenBank}
               loading={loadings.rakutenBank}
               onClickUpdate={handleRakutenBankUpdate}
             />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid xs={12} md={4} component="div">
             <SbiShinseiBankCard
               total={totals.sbiShinseiBank}
               loading={loadings.sbiShinseiBank}
               onClickUpdate={handleSbiShinseiBankUpdate}
             />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid xs={12} md={4} component="div">
             <SumishinSbiBankCard
               total={totals.sumishinSbiBank}
               loading={loadings.sumishinSbiBank}
               onClickUpdate={handleSumishinSbiBankUpdate}
             />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid xs={12} md={4} component="div">
             <SbiBenefitSystemCard
               total={totals.sbiBenefitSystem}
               loading={loadings.sbiBenefitSystem}
               onClickUpdate={handleSbiBenefitSystemUpdate}
             />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid xs={12} md={4} component="div">
             <MitsuisumitomoCardCard
               total={totals.smbcCard}
               loading={loadings.smbcCard}

@@ -1,11 +1,11 @@
-import React from 'react';
+import Backdrop from '@mui/material/Backdrop';
+import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
-import Backdrop from '@mui/material/Backdrop';
+import Typography from '@mui/material/Typography';
+import { type FC } from 'react';
 // Removed Box import as it's not strictly necessary if CardActions handles layout
 
 interface BaseCardProps {
@@ -16,7 +16,7 @@ interface BaseCardProps {
   onClickUpdate: () => void;
 }
 
-const BaseCard: React.FC<BaseCardProps> = ({
+export const BaseCard: FC<BaseCardProps> = ({
   total,
   title,
   bgColor,

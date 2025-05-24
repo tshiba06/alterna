@@ -1,6 +1,6 @@
-import React from 'react';
+import type { FC } from "react";
 
-const ErrorNotFound: React.FC = () => {
+export const ErrorNotFound: FC = () => {
   return (
     <div>
       <h2>Page Not Found</h2>

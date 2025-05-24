@@ -1,4 +1,4 @@
-import React from 'react';
+import { type FC } from 'react';
 import BaseCard from './BaseCard';
 
 interface SbiBenefitSystemCardProps {
@@ -7,7 +7,7 @@ interface SbiBenefitSystemCardProps {
   onClickUpdate: () => void;
 }
 
-const SbiBenefitSystemCard: React.FC<SbiBenefitSystemCardProps> = ({ total, loading, onClickUpdate }) => {
+export const SbiBenefitSystemCard: FC<SbiBenefitSystemCardProps> = ({ total, loading, onClickUpdate }) => {
   return (
     <BaseCard
       title="SBIベネフィットシステムズ"

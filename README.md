@@ -5,7 +5,7 @@ This project aggregates financial data from various Japanese financial instituti
 ## Key Technologies
 
 *   **Backend:** Python, FastAPI, SQLAlchemy, Alembic
-*   **Frontend:** Vue.js, Quasar
+*   **Frontend:** react + vite
 *   **Database:** PostgreSQL (implicitly, as it's common with SQLAlchemy and Alembic)
 *   **Containerization:** Docker, Docker Compose
 
@@ -71,7 +71,7 @@ The application supports data aggregation from the following institutions (based
     *   `routers/`: API endpoint definitions.
     *   `services/`: Business logic for interacting with financial institutions.
     *   `use_cases/`: Higher-level application logic orchestrating services.
-*   `frontend/`: Contains the Vue.js (with Quasar framework) frontend application.
+*   `frontend/`: Contains the react + vite frontend application.
 *   `migrations/`: Alembic database migration scripts.
 *   `compose.yaml`: Docker Compose configuration for running the application stack.
 *   `Dockerfile`: Docker configuration for the backend application.
